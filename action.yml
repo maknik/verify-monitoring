@@ -1,0 +1,11 @@
+name: "verify-monitoring"
+description: "verifies your monitoring files"
+
+inputs:
+  host:
+    description: 'monitoring service host'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'index.js'
