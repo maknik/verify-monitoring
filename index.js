@@ -9,11 +9,13 @@ process.on('unhandledRejection', up => {
     core.setFailed(`Action failed ${up}`);
 });
 
-glob('monitoring_templates/*.y*ml', async (er, files) => {
+glob('monitoring_templates/*/*.y*ml', async (er, files) => {
     if (er) throw new er;
     const results = await Promise.all(files.map((file) => verifyFile(file)));
     results.forEach(result => {
-        if (!result.valid) core.setFailed(`configuration invalid ${JSON.stringify(result)}`);
+        if (!result.response.valid) {
+            core.setFailed(`Configuration invalid: ${result.file}\n${JSON.stringify(result.response, null, 2)}`);
+        }
     })
 })
 
@@ -24,5 +26,7 @@ function verifyFile(file) {
             'Content-Type': 'application/yaml'
         },
         method: 'POST'
-    }).then(response => response.json())
+    })
+        .then(response => response.json())
+        .then(response => ({ response, file }))
 }
