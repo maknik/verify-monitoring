@@ -9,9 +9,15 @@ process.on('unhandledRejection', up => {
     core.setFailed(`Action failed ${up}`);
 });
 
-glob('monitoring_templates/*/*.y*ml', async (er, files) => {
+glob('monitoring_templates/*.y*ml', async (er, files) => {
     if (er) throw new er;
-    const results = await Promise.all(files.map((file) => verifyFile(file)));
+    const results = await Promise.all(files.map((file) => {
+        if (file.endsWith('/properties.yaml')) {
+            verifyFile(file, true)
+        } else {
+            verifyFile(file)
+        }
+    }));
     results.forEach(result => {
         if (!result.response.valid) {
             core.setFailed(`Configuration invalid: ${result.file}\n${JSON.stringify(result.response, null, 2)}`);
@@ -19,8 +25,9 @@ glob('monitoring_templates/*/*.y*ml', async (er, files) => {
     })
 })
 
-function verifyFile(file) {
-    return fetch(`https://${host}/api/monitoring-templates/validate`, {
+function verifyFile(file, isProperties = false) {
+    const url = isProperties ? `https://${host}/api/monitoring/templates/validate-properties` : `https://${host}/api/monitoring/templates/validate`;
+    return fetch(url, {
         body: fs.readFileSync(file),
         headers: {
             'Content-Type': 'application/yaml'
