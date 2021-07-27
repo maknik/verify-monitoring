@@ -9,13 +9,13 @@ process.on('unhandledRejection', up => {
     core.setFailed(`Action failed ${up}`);
 });
 
-glob('monitoring_templates/*.y*ml', async (er, files) => {
+glob('monitoring_templates/**/*.y*ml', async (er, files) => {
     if (er) throw new er;
     const results = await Promise.all(files.map((file) => {
         if (file.endsWith('/properties.yaml')) {
-            verifyFile(file, true)
+            return verifyFile(file, true);
         } else {
-            verifyFile(file)
+            return verifyFile(file);
         }
     }));
     results.forEach(result => {
@@ -26,7 +26,7 @@ glob('monitoring_templates/*.y*ml', async (er, files) => {
 })
 
 function verifyFile(file, isProperties = false) {
-    const url = isProperties ? `https://${host}/api/monitoring/templates/validate-properties` : `https://${host}/api/monitoring/templates/validate`;
+    const url = isProperties ? `https://${host}/api/monitoring-templates/validate-properties` : `https://${host}/api/monitoring-templates/validate`;
     return fetch(url, {
         body: fs.readFileSync(file),
         headers: {
@@ -35,5 +35,5 @@ function verifyFile(file, isProperties = false) {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(response => ({ response, file }))
+        .then(response => ({response, file}))
 }
