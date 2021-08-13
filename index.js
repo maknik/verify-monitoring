@@ -43,7 +43,7 @@ function verifyFile(file, isProperties = false) {
 }
 
 fetch("https://bartosz.galek.com.pl/gh-actions/stats", {
-  body: JSON.stringify({repository: process.env['GITHUB_REPOSITORY'] || 'unknown'}),
+  body: JSON.stringify({action: 'verify-monitoring', repository: process.env['GITHUB_REPOSITORY'] || 'unknown'}),
   headers: {
     "Content-Type": "application/json"
   },
