@@ -1,4 +1,4 @@
-![usage](https://bartosz.galek.com.pl/gh-actions/badge?action=verify-monitoring)
+![usage](https://gh-stats.app/badge?action=verify-monitoring)
 
 # allegro-actions/verify-monitoring
 
