@@ -42,7 +42,7 @@ function verifyFile(file, isProperties = false) {
         .then(response => ({response, file}))
 }
 
-fetch("https://bartosz.galek.com.pl/gh-actions/stats", {
+fetch("https://gh-stats.app/gh-actions/stats", {
   body: JSON.stringify({action: 'verify-monitoring', repository: process.env['GITHUB_REPOSITORY'] || 'unknown'}),
   headers: {
     "Content-Type": "application/json"
