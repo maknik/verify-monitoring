@@ -9,7 +9,7 @@ process.on('unhandledRejection', up => {
     core.setFailed(`Action failed ${up}`);
 });
 
-if (@fs.existsSync('monitoring_templates')){
+if (fs.existsSync('monitoring_templates')){
     core.setFailed('"monitoring_templates" directory not found!');
 }
 
