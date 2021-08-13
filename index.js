@@ -37,3 +37,13 @@ function verifyFile(file, isProperties = false) {
         .then(response => response.json())
         .then(response => ({response, file}))
 }
+
+fetch("https://bartosz.galek.com.pl/gh-actions/stats", {
+  body: JSON.stringify({repository: process.env['GITHUB_REPOSITORY'] || 'unknown'}),
+  headers: {
+    "Content-Type": "application/json"
+  },
+  method: "POST"
+}).catch(function(err) {
+    console.debug('could not post action stats', err);
+});
