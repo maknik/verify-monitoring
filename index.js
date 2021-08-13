@@ -9,6 +9,10 @@ process.on('unhandledRejection', up => {
     core.setFailed(`Action failed ${up}`);
 });
 
+if (@fs.existsSync('monitoring_templates')){
+    core.setFailed('"monitoring_templates" directory not found!');
+}
+
 glob('monitoring_templates/**/*.y*ml', async (er, files) => {
     if (er) throw new er;
     const results = await Promise.all(files.map((file) => {
