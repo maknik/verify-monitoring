@@ -1,4 +1,5 @@
 ![usage](https://bartosz.galek.com.pl/gh-actions/badge?action=verify-monitoring)
+
 # allegro-actions/verify-monitoring
 
 This action verifies your monitoring files.
