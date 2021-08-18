@@ -1,4 +1,4 @@
-![usage](https://gh-stats.app/badge?action=verify-monitoring)
+![usage](https://gh-stats.app/badge?action=allegro-actions/verify-monitoring)
 
 # allegro-actions/verify-monitoring
 
