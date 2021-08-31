@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@actions/core": "^1.5.0",
-    "@gh-stats/reporter": "^1.0.4",
+    "@gh-stats/reporter": "^1.0.5",
     "glob": "^7.1.7",
     "node-fetch": "^3.0.0"
   }
